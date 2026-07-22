@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Company</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+
+    <a href="/products">📦 Products</a>
+
+    <a href="/customers">👥 Customers</a>
+
+    <a href="/add_company">➕ Add Company</a>
+
+    <a href="/analytics">📈 Analytics</a>
+
+    <a href="/">🚪 Logout</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+
+</div>
+
+<div class="main">
+
+    <h1>Add New Company</h1>
+
+    <div class="form-card">
+
+        <<form action="/add_company" method="POST">
+
+    <input type="text" name="name" placeholder="Company Name" required>
+
+    <input type="number" name="revenue" placeholder="Revenue" required>
+
+    <input type="number" name="profit" placeholder="Profit" required>
+
+    <input type="number" name="orders" placeholder="Orders" required>
+
+    <button type="submit">Add Company</button>
+
+</form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

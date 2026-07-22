@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Company Details</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/">🚪 Logout</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>Company Details</h1>
+
+    <div class="card" style="max-width:700px;">
+
+        <h2 style="margin-bottom:20px;color:#2563eb;">
+            {{ company.name }}
+        </h2>
+
+        <p style="font-size:18px;margin-bottom:15px;">
+            <strong>Revenue:</strong>
+            ₹{{ company.revenue }}
+        </p>
+
+        <p style="font-size:18px;margin-bottom:15px;">
+            <strong>Profit:</strong>
+            ₹{{ company.profit }}
+        </p>
+
+        <p style="font-size:18px;margin-bottom:15px;">
+            <strong>Orders:</strong>
+            {{ company.orders }}
+        </p>
+
+        <hr style="margin:20px 0;">
+
+        {% if company.profit|int > 0 %}
+
+            <h3 style="color:green;">
+                ✅ Business Status : PROFIT
+            </h3>
+
+            <p>
+                This company is performing well and generating profit.
+            </p>
+
+        {% else %}
+
+            <h3 style="color:red;">
+                ❌ Business Status : LOSS
+            </h3>
+
+            <p>
+                This company needs improvement to increase profitability.
+            </p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/dashboard"
+           style="
+           background:#2563eb;
+           color:white;
+           padding:12px 20px;
+           border-radius:8px;
+           text-decoration:none;">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

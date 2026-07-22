@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Electronics Sales Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= Sidebar ================= -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<!-- ================= Main ================= -->
+
+<div class="main">
+
+    <h1>👋 Welcome, {{ session['user'] }}</h1>
+    <h2>Electronics Sales Dashboard</h2>
+    <button id="themeBtn" onclick="toggleTheme()">
+🌙 Dark Mode
+</button>
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Companies</h3>
+            <h2>{{ total_companies }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Customers</h3>
+            <h2>{{ total_customers }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Products</h3>
+            <h2>{{ total_products }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Orders</h3>
+            <h2>{{ total_orders }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Revenue</h3>
+            <h2>₹{{ total_revenue }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Profit</h3>
+            <h2>₹{{ total_profit }}</h2>
+        </div>
+
+    </div>
+
+<!-- NEW TOP COMPANY CARDS START -->
+
+<div class="cards">
+
+    <div class="card">
+        <h3>🏆 Top Revenue</h3>
+        {% if top_revenue %}
+            <h2>{{ top_revenue["name"] }}</h2>
+            <p>₹{{ top_revenue["revenue"] }}</p>
+        {% else %}
+            <p>No Data</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>💰 Top Profit</h3>
+        {% if top_profit %}
+            <h2>{{ top_profit["name"] }}</h2>
+            <p>₹{{ top_profit["profit"] }}</p>
+        {% else %}
+            <p>No Data</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h3>📦 Top Orders</h3>
+        {% if top_orders %}
+            <h2>{{ top_orders["name"] }}</h2>
+            <p>{{ top_orders["orders"] }} Orders</p>
+        {% else %}
+            <p>No Data</p>
+        {% endif %}
+    </div>
+
+</div>
+<!-- NEW TOP COMPANY CARDS END -->
+
+    <br>
+
+    <!-- Search -->
+
+    <form action="/dashboard" method="GET" style="display:flex;gap:10px;margin-bottom:25px;">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Search Company..."
+            value="{{ search }}"
+            style="
+                width:350px;
+                padding:12px;
+                border-radius:8px;
+                border:1px solid #ccc;
+                font-size:16px;">
+
+        <button
+            type="submit"
+            style="
+                background:#2563eb;
+                color:white;
+                border:none;
+                padding:12px 25px;
+                border-radius:8px;
+                cursor:pointer;">
+
+            Search
+
+        </button>
+
+        <a href="/dashboard"
+           style="
+                background:#6b7280;
+                color:white;
+                padding:12px 20px;
+                border-radius:8px;
+                text-decoration:none;">
+
+            Clear
+
+        </a>
+
+    </form>
+<div style="margin-bottom:20px;">
+
+    <a href="/export_dashboard"
+       style="
+       background:#16a34a;
+       color:white;
+       padding:12px 20px;
+       border-radius:8px;
+       text-decoration:none;
+       font-weight:bold;">
+
+       📊 Export Dashboard Report
+
+    </a>
+
+</div>
+<h2>📊 Sales Analytics</h2>
+
+<div style="width:100%;background:white;padding:20px;border-radius:10px;margin-bottom:20px;">
+    <canvas id="salesChart"></canvas>
+</div>
+    <h2 style="margin-bottom:15px;">Company Sales</h2>
+
+    <table>
+
+        <tr>
+
+            <th>Company</th>
+            <th>Revenue</th>
+            <th>Profit</th>
+            <th>Orders</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for company in companies %}
+
+        <tr>
+
+            <td>
+
+                <a href="/company/{{ company.id }}"
+                   style="text-decoration:none;color:#2563eb;font-weight:bold;">
+
+                    {{ company.name }}
+
+                </a>
+
+            </td>
+
+            <td>₹{{ company.revenue }}</td>
+
+            <td>₹{{ company.profit }}</td>
+
+            <td>{{ company.orders }}</td>
+
+            {% if company.profit|int > 0 %}
+
+                <td style="color:green;font-weight:bold;">
+                    Profit
+                </td>
+
+            {% else %}
+
+                <td style="color:red;font-weight:bold;">
+                    Loss
+                </td>
+
+            {% endif %}
+
+            <td>
+
+                <a href="/edit/{{ company.id }}"
+                   style="
+                        background:#f59e0b;
+                        color:white;
+                        padding:8px 14px;
+                        border-radius:6px;
+                        text-decoration:none;
+                        margin-right:8px;">
+
+                    ✏ Edit
+
+                </a>
+
+                <a href="/delete/{{ company.id }}"
+                   onclick="return confirm('Delete this company?')"
+                   style="
+                        background:#ef4444;
+                        color:white;
+                        padding:8px 14px;
+                        border-radius:6px;
+                        text-decoration:none;">
+
+                    🗑 Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+<hr style="margin-top:40px; margin-bottom:20px; border:1px solid #ddd;">
+
+<footer style="
+    text-align:center;
+    padding:20px;
+    color:#6b7280;
+    font-size:15px;
+">
+
+    <h3 style="margin-bottom:10px;">
+        ElectroSales Dashboard
+    </h3>
+
+    <p>Version 1.0</p>
+
+    <p style="margin-top:10px;">
+        Developed by <strong>Kalimalla Arshad</strong>
+    </p>
+
+    <p>
+        © 2026 All Rights Reserved
+    </p>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+function toggleTheme(){
+
+    document.body.classList.toggle("dark-mode");
+
+    let btn=document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("theme","dark");
+        btn.innerHTML="☀️ Light Mode";
+    }else{
+        localStorage.setItem("theme","light");
+        btn.innerHTML="🌙 Dark Mode";
+    }
+}
+
+window.onload=function(){
+
+    let btn=document.getElementById("themeBtn");
+
+    if(localStorage.getItem("theme")=="dark"){
+        document.body.classList.add("dark-mode");
+        btn.innerHTML="☀️ Light Mode";
+    }
+
+    const labels = [
+    {% for company in companies %}
+    "{{ company.name }}",
+    {% endfor %}
+    ];
+
+    const revenue = [
+    {% for company in companies %}
+    {{ company.revenue }},
+    {% endfor %}
+    ];
+
+    new Chart(document.getElementById("salesChart"), {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Revenue",
+                data: revenue
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}
+</script>
+
+</body>
+
+</html>

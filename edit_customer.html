@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Customer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>Edit Customer</h1>
+
+    <form method="POST">
+
+        <label>Name</label><br>
+        <input type="text"
+               name="name"
+               value="{{ customer.name }}"
+               required
+               style="width:400px;padding:10px;"><br><br>
+
+        <label>Email</label><br>
+        <input type="email"
+               name="email"
+               value="{{ customer.email }}"
+               required
+               style="width:400px;padding:10px;"><br><br>
+
+        <label>Phone</label><br>
+        <input type="text"
+               name="phone"
+               value="{{ customer.phone }}"
+               required
+               style="width:400px;padding:10px;"><br><br>
+
+        <label>Orders</label><br>
+        <input type="number"
+               name="orders"
+               value="{{ customer.orders }}"
+               required
+               style="width:400px;padding:10px;"><br><br>
+
+        <button
+            style="
+            background:#f59e0b;
+            color:white;
+            padding:12px 25px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;">
+
+            Update Customer
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

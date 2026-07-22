@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Product</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>Add New Product</h1>
+
+    <div class="form-card">
+
+        <form method="POST">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Product Name"
+                required>
+
+            <input
+                type="text"
+                name="brand"
+                placeholder="Brand"
+                required>
+
+            <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                required>
+
+            <input
+                type="number"
+                name="stock"
+                placeholder="Stock Quantity"
+                required>
+
+            <button type="submit">
+
+                ➕ Add Product
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Sales Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<div class="main">
+
+<h1>🤖 AI Sales Prediction Dashboard</h1>
+
+<table>
+
+<tr>
+    <th>Company</th>
+    <th>Current Revenue</th>
+    <th>Predicted Revenue</th>
+    <th>Current Profit</th>
+    <th>Predicted Profit</th>
+    <th>Current Orders</th>
+    <th>Predicted Orders</th>
+    <th>AI Recommendation</th>
+</tr>
+
+{% for company in predictions %}
+
+<tr>
+
+    <td>{{ company.name }}</td>
+
+    <td>₹{{ company.revenue }}</td>
+
+    <td style="color:green;font-weight:bold;">
+        ₹{{ company.predicted_revenue }}
+    </td>
+
+    <td>₹{{ company.profit }}</td>
+
+    <td style="color:green;font-weight:bold;">
+        ₹{{ company.predicted_profit }}
+    </td>
+
+    <td>{{ company.orders }}</td>
+
+    <td style="color:blue;font-weight:bold;">
+        {{ company.predicted_orders }}
+    </td>
+
+    <td>{{ company.recommendation }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<div class="card" style="padding:20px;">
+
+<h2>🤖 AI Business Insights</h2>
+
+<ul style="line-height:35px;font-size:18px;">
+
+<li>📈 Revenue prediction is calculated using historical sales trends.</li>
+
+<li>💰 Profit prediction estimates future profitability.</li>
+
+<li>📦 Order prediction forecasts upcoming demand.</li>
+
+<li>🟢 Excellent Growth → Expand business and invest more.</li>
+
+<li>🟡 Stable Business → Maintain current strategy.</li>
+
+<li>🔴 Improve Sales → Focus on marketing and customer engagement.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

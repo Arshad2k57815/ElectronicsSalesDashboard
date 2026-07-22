@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Company</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+
+    <a href="/products">📦 Products</a>
+
+    <a href="/customers">👥 Customers</a>
+
+    <a href="/add_company">➕ Add Company</a>
+
+    <a href="/analytics">📈 Analytics</a>
+
+    <a href="/">🚪 Logout</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+
+</div>
+
+<div class="main">
+
+<h1>Edit Company</h1>
+
+<div class="form-card">
+
+<form action="/update/{{ company.id }}" method="POST">
+
+<input type="text"
+name="name"
+value="{{ company.name }}"
+required>
+
+<input type="number"
+name="revenue"
+value="{{ company.revenue }}"
+required>
+
+<input type="number"
+name="profit"
+value="{{ company.profit }}"
+required>
+
+<input type="number"
+name="orders"
+value="{{ company.orders }}"
+required>
+
+<button type="submit">
+Update Company
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

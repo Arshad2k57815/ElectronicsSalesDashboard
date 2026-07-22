@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sales Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .chart-card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom:25px;
+        }
+
+        .chart-row{
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .chart-row .chart-card{
+            flex:1;
+            min-width:350px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        table th{
+            background:#2563eb;
+            color:white;
+            padding:12px;
+        }
+
+        table td{
+            padding:12px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<div class="main">
+
+<h1>📈 Sales Analytics Dashboard</h1>
+
+<div class="chart-card">
+    <h2>Revenue vs Profit</h2>
+    <canvas id="salesChart" height="120"></canvas>
+</div>
+
+<div class="chart-row">
+
+    <div class="chart-card">
+        <h2>Orders Distribution</h2>
+        <canvas id="ordersChart" height="250"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h2>Profit Trend</h2>
+        <canvas id="profitChart" height="250"></canvas>
+    </div>
+
+</div>
+
+<br>
+
+<div class="chart-card">
+
+<h2>Company Statistics</h2>
+
+<table>
+
+<tr>
+<th>Company</th>
+<th>Revenue</th>
+<th>Profit</th>
+<th>Orders</th>
+</tr>
+
+{% for company in companies %}
+
+<tr>
+
+<td>{{ company.name }}</td>
+<td>₹{{ company.revenue }}</td>
+<td>₹{{ company.profit }}</td>
+<td>{{ company.orders }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+const companies = {{ companies | tojson }};
+
+const labels = companies.map(c => c.name);
+const revenues = companies.map(c => Number(c.revenue));
+const profits = companies.map(c => Number(c.profit));
+const orders = companies.map(c => Number(c.orders));
+
+new Chart(document.getElementById("salesChart"),{
+
+    type:"bar",
+
+    data:{
+        labels:labels,
+        datasets:[
+            {
+                label:"Revenue",
+                data:revenues,
+                backgroundColor:"#3b82f6"
+            },
+            {
+                label:"Profit",
+                data:profits,
+                backgroundColor:"#22c55e"
+            }
+        ]
+    },
+
+    options:{
+        responsive:true
+    }
+
+});
+
+new Chart(document.getElementById("ordersChart"),{
+
+    type:"pie",
+
+    data:{
+
+        labels:labels,
+
+        datasets:[{
+
+            data:orders,
+
+            backgroundColor:[
+                "#3b82f6",
+                "#22c55e",
+                "#f59e0b",
+                "#ef4444",
+                "#8b5cf6",
+                "#06b6d4"
+            ]
+
+        }]
+
+    },
+
+    options:{
+        responsive:true
+    }
+
+});
+
+new Chart(document.getElementById("profitChart"),{
+
+    type:"line",
+
+    data:{
+
+        labels:labels,
+
+        datasets:[{
+
+            label:"Profit",
+
+            data:profits,
+
+            borderColor:"#22c55e",
+
+            backgroundColor:"rgba(34,197,94,0.2)",
+
+            fill:true,
+
+            tension:0.4
+
+        }]
+
+    },
+
+    options:{
+        responsive:true
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

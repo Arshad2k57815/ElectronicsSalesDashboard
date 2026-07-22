@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Customers</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>Customers</h1>
+
+    <!-- Buttons -->
+
+    <div style="margin-bottom:20px;">
+
+        <a href="/add_customer"
+           style="
+           background:#2563eb;
+           color:white;
+           padding:12px 20px;
+           border-radius:8px;
+           text-decoration:none;
+           display:inline-block;">
+
+           ➕ Add Customer
+
+        </a>
+
+        <a href="/export_customers"
+           style="
+           background:#16a34a;
+           color:white;
+           padding:12px 20px;
+           border-radius:8px;
+           text-decoration:none;
+           display:inline-block;
+           margin-left:10px;">
+
+           📥 Export CSV
+
+        </a>
+
+    </div>
+
+    <!-- Search -->
+
+    <form action="/customers"
+          method="GET"
+          style="margin-bottom:20px;display:flex;gap:10px;">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search Customer..."
+            value="{{ request.args.get('search','') }}"
+            style="
+            width:300px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:8px;">
+
+        <button
+            type="submit"
+            style="
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:10px 20px;
+            cursor:pointer;">
+
+            Search
+
+        </button>
+
+        <a href="/customers"
+           style="
+           background:gray;
+           color:white;
+           padding:10px 20px;
+           border-radius:8px;
+           text-decoration:none;">
+
+            Clear
+
+        </a>
+
+    </form>
+
+    <!-- Table -->
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Orders</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for customer in customers %}
+
+        <tr>
+
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.orders }}</td>
+
+            <td>
+
+                <a href="/edit_customer/{{ customer.id }}"
+                   style="
+                   background:#f59e0b;
+                   color:white;
+                   padding:8px 12px;
+                   border-radius:6px;
+                   text-decoration:none;
+                   margin-right:8px;">
+
+                    ✏ Edit
+
+                </a>
+
+                <a href="/delete_customer/{{ customer.id }}"
+                   onclick="return confirm('Delete this customer?')"
+                   style="
+                   background:#ef4444;
+                   color:white;
+                   padding:8px 12px;
+                   border-radius:6px;
+                   text-decoration:none;">
+
+                    🗑 Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

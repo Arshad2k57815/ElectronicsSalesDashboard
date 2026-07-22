@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Orders</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<div class="main">
+
+    <h1>Orders</h1>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Total Orders</h3>
+
+            <h2>{{ orders|length }}</h2>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+
+                <a href="/add_order"
+                   style="text-decoration:none;color:#2563eb;">
+
+                    ➕ Add Order
+
+                </a>
+
+            </h3>
+
+            <br>
+
+            <a href="/export_orders"
+               style="
+               background:#16a34a;
+               color:white;
+               padding:10px 18px;
+               border-radius:6px;
+               text-decoration:none;
+               display:inline-block;">
+
+                📥 Export CSV
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <table>
+
+        <tr>
+
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ order.customer }}</td>
+            <td>{{ order.product }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>₹{{ order.price }}</td>
+            <td>{{ order.status }}</td>
+
+            <td>
+
+                <a href="/delete_order/{{ order.id }}"
+                   onclick="return confirm('Delete this order?')"
+                   style="
+                   background:#ef4444;
+                   color:white;
+                   padding:8px 14px;
+                   border-radius:6px;
+                   text-decoration:none;">
+
+                    🗑 Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

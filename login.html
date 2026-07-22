@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Electronics Sales Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>Electronics Sales Dashboard</h1>
+
+    <p>AI Based Sales Management System</p>
+
+    {% if error %}
+    <p style="color:red;">
+        {{ error }}
+    </p>
+    {% endif %}
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

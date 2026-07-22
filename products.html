@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Products</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>ElectroSales</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+    <a href="/products">📦 Products</a>
+    <a href="/customers">👥 Customers</a>
+    <a href="/orders">📋 Orders</a>
+    <a href="/add_company">➕ Add Company</a>
+    <a href="/analytics">📈 Analytics</a>
+    <a href="/ai_prediction">🤖 AI Prediction</a>
+    <a href="/">🚪 Logout</a>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <h1>Electronics Products</h1>
+
+    <!-- Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Products</h3>
+            <h2>{{ products|length }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>In Stock</h3>
+            <h2>{{ products|length }}</h2>
+        </div>
+
+        <div class="card">
+            <h3>Categories</h3>
+            <h2>4</h2>
+        </div>
+
+        <div class="card">
+            <h3>Inventory Value</h3>
+            <h2>₹15,50,000</h2>
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Add Product Button -->
+
+    <a href="/add_product"
+       style="
+       background:#2563eb;
+       color:white;
+       padding:12px 20px;
+       border-radius:8px;
+       text-decoration:none;
+       display:inline-block;
+       margin-bottom:20px;">
+       
+
+       ➕ Add Product
+       <a href="/export_products"
+style="
+background:green;
+color:white;
+padding:12px 20px;
+border-radius:8px;
+text-decoration:none;
+display:inline-block;
+margin-left:10px;
+margin-bottom:20px;">
+
+📥 Export CSV
+
+</a>
+
+    </a>
+
+    <!-- Search -->
+
+    <form action="/products"
+          method="GET"
+          style="margin-bottom:20px;display:flex;gap:10px;">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Search Product..."
+            value="{{ request.args.get('search','') }}"
+            style="
+            width:300px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:8px;">
+
+        <button
+            type="submit"
+            style="
+            padding:10px 20px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;">
+
+            Search
+
+        </button>
+
+        <a href="/products"
+           style="
+           background:gray;
+           color:white;
+           padding:10px 20px;
+           border-radius:8px;
+           text-decoration:none;">
+
+           Clear
+
+        </a>
+
+    </form>
+
+    <!-- Table -->
+
+    <table>
+
+        <tr>
+
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% for product in products %}
+
+        <tr>
+
+            <td>{{ product.name }}</td>
+
+            <td>{{ product.brand }}</td>
+
+            <td>₹{{ product.price }}</td>
+
+            <td>{{ product.stock }}</td>
+
+            {% if product.stock > 10 %}
+
+                <td style="color:green;font-weight:bold;">
+                    In Stock
+                </td>
+
+            {% else %}
+
+                <td style="color:red;font-weight:bold;">
+                    Low Stock
+                </td>
+
+            {% endif %}
+
+            <td>
+
+                <a href="/edit_product/{{ product.id }}"
+                   style="
+                   background:#f59e0b;
+                   color:white;
+                   padding:8px 14px;
+                   border-radius:6px;
+                   text-decoration:none;
+                   margin-right:8px;">
+
+                    ✏ Edit
+
+                </a>
+
+                <a href="/delete_product/{{ product.id }}"
+                   onclick="return confirm('Delete this product?')"
+                   style="
+                   background:#ef4444;
+                   color:white;
+                   padding:8px 14px;
+                   border-radius:6px;
+                   text-decoration:none;">
+
+                    🗑 Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
