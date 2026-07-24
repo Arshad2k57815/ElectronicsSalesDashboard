@@ -175,7 +175,9 @@ http://127.0.0.1:5000
 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫
 
 Kalimalla Arshad
+
 B.Tech in Electrical and Electronics Engineering
+
 IIIT RK Valley
 
 𝐀𝐜𝐤𝐧𝐨𝐰𝐥𝐞𝐝𝐠𝐞𝐦𝐞𝐧𝐭𝐬
