@@ -8,7 +8,7 @@ An AI-powered Electronics Sales Dashboard built using Flask, SQLite, HTML, CSS, 
 
 > Add your dashboard screenshot below.
 
-![Dashboard](images/dashboard.png)
+![Dashboard](dashboard.png)
 
 
 
