@@ -182,4 +182,4 @@ IIIT RK Valley
 
 𝐀𝐜𝐤𝐧𝐨𝐰𝐥𝐞𝐝𝐠𝐞𝐦𝐞𝐧𝐭𝐬
 
-This project was developed as part of my learning journey in **Flask web development, database management, business analytics, and machine learning integration. It demonstrates how data-driven technologies can be combined to build practical business management applications.
+This project was developed as part of my learning journey in Flask web development, database management, business analytics, and machine learning integration. It demonstrates how data-driven technologies can be combined to build practical business management applications.
